@@ -29,6 +29,10 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./cut1": {
+      "import": "./dist/cut1.js",
+      "types": "./dist/cut1.d.ts"
     }
   },
   "files": [
@@ -48,7 +52,6 @@
     "typescript"
   ],
   "license": "MIT",
-  "main": "dist/index.js",
   "name": "@echecs/sonneborn-berger",
   "publishConfig": {
     "access": "public"
@@ -72,6 +75,5 @@
   },
   "sideEffects": false,
   "type": "module",
-  "types": "dist/index.d.ts",
-  "version": "0.3.0"
+  "version": "1.0.0"
 }

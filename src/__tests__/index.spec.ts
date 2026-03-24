@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { sonnebornBerger, sonnebornBergerCut1 } from '../index.js';
+import { sonnebornBerger, sonnebornBergerCut1 } from '../functions.js';
 
 import type { Game } from '../types.js';
 
