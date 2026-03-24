@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 — 2026-03-23
+
+- Release with Game[][] breaking change
+
 ## 0.2.0 — 2026-03-23
 
 ### Changed
