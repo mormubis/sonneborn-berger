@@ -80,7 +80,7 @@ pnpm lint && pnpm test && pnpm build
 - The Sonneborn-Berger score for a player is the sum of the final tournament
   scores of every opponent the player **defeated**, plus half the final scores
   of every opponent the player **drew** with. Losses contribute nothing.
-- A `Game` with `blackId: ''` (empty string) represents a **bye**. Byes are
+- A `Game` with `black: ''` (empty string) represents a **bye**. Byes are
   excluded from the Sonneborn-Berger calculation.
 - `sonnebornBergerCut1` removes the opponent whose contribution to the
   Sonneborn-Berger score is lowest before summing. This is useful as a secondary

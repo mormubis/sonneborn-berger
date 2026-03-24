@@ -1,9 +1,9 @@
 type Result = 0 | 0.5 | 1;
 
 interface Game {
-  blackId: string;
+  black: string;
   result: Result;
-  whiteId: string;
+  white: string;
 }
 
 interface Player {

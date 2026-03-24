@@ -1,10 +1,13 @@
 # Changelog
 
-## 0.2.1 — 2026-03-23
+## 0.3.0 — 2026-03-24
 
-- Release with Game[][] breaking change
+### Changed
 
-## 0.2.0 — 2026-03-23
+- **BREAKING:** `Game.blackId` renamed to `Game.black`.
+- **BREAKING:** `Game.whiteId` renamed to `Game.white`.
+
+## 0.2.2 — 2026-03-23
 
 ### Changed
 

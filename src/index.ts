@@ -5,11 +5,11 @@ import type { Game } from './types.js';
 function sonnebornBerger(playerId: string, games: Game[][]): number {
   let sum = 0;
   for (const g of gamesForPlayer(playerId, games)) {
-    if (g.blackId === BYE_SENTINEL || g.whiteId === BYE_SENTINEL) {
+    if (g.black === BYE_SENTINEL || g.white === BYE_SENTINEL) {
       continue;
     }
-    const opponentId = g.whiteId === playerId ? g.blackId : g.whiteId;
-    const playerResult = g.whiteId === playerId ? g.result : 1 - g.result;
+    const opponentId = g.white === playerId ? g.black : g.white;
+    const playerResult = g.white === playerId ? g.result : 1 - g.result;
     sum += playerResult * score(opponentId, games);
   }
   return sum;
@@ -18,11 +18,11 @@ function sonnebornBerger(playerId: string, games: Game[][]): number {
 function sonnebornBergerCut1(playerId: string, games: Game[][]): number {
   const contributions: { contribution: number; opponentScore: number }[] = [];
   for (const g of gamesForPlayer(playerId, games)) {
-    if (g.blackId === BYE_SENTINEL || g.whiteId === BYE_SENTINEL) {
+    if (g.black === BYE_SENTINEL || g.white === BYE_SENTINEL) {
       continue;
     }
-    const opponentId = g.whiteId === playerId ? g.blackId : g.whiteId;
-    const playerResult = g.whiteId === playerId ? g.result : 1 - g.result;
+    const opponentId = g.white === playerId ? g.black : g.white;
+    const playerResult = g.white === playerId ? g.result : 1 - g.result;
     const opponentScore = score(opponentId, games);
     contributions.push({
       contribution: playerResult * opponentScore,
