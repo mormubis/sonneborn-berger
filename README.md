@@ -20,12 +20,15 @@ npm install @echecs/sonneborn-berger
 
 ```typescript
 import { sonnebornBerger } from '@echecs/sonneborn-berger';
+import type { Game, GameKind } from '@echecs/sonneborn-berger';
 
 // games[n] = round n+1; Game has no `round` field
-const games = [
+const games: Game[][] = [
   [{ black: 'B', result: 1, white: 'A' }], // round 1
   [{ black: 'C', result: 0.5, white: 'A' }], // round 2
   [{ black: 'A', result: 0, white: 'D' }], // round 3
+  // Unplayed rounds use kind to classify the bye type (FIDE article 16)
+  [{ black: '', kind: 'half-bye', result: 0.5, white: 'A' }], // round 4
 ];
 
 const score = sonnebornBerger('A', games);
@@ -38,12 +41,18 @@ All functions accept `(playerId: string, games: Game[][], players?: Player[])`
 and return `number`. Round is determined by array position: `games[0]` = round
 1, `games[1]` = round 2, etc. The `Game` type has no `round` field.
 
+The optional `kind?: GameKind` field on `Game` classifies unplayed rounds for
+FIDE article 16 compliance. Valid values: `'forfeit-loss'`, `'forfeit-win'`,
+`'full-bye'`, `'half-bye'`, `'pairing-bye'`, `'zero-bye'`. When absent the game
+is treated as a normal over-the-board result.
+
 ### `sonnebornBerger(playerId, games, players?)`
 
 **FIDE section 9.1** — Full Sonneborn-Berger score. For each game played by
 `playerId`, adds the final tournament score of the opponent multiplied by the
 result (1 for a win, 0.5 for a draw, 0 for a loss). Byes are excluded. Primarily
-used in round-robin tournaments.
+used in round-robin tournaments. Compliant with FIDE article 16 unplayed rounds
+management when `kind` is present on games.
 
 ### `sonnebornBergerCut1(playerId, games, players?)`
 

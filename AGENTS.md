@@ -27,8 +27,23 @@ All functions conform to the signature:
 `games[1]` contains round-2 games, and so on. The `Game` type no longer has a
 `round` field — round is determined by array position.
 
+The `Game` type carries an optional `kind?: GameKind` field used to classify
+unplayed rounds for FIDE article 16 compliance:
+
+```ts
+type GameKind =
+  | 'forfeit-loss' // 16.2.4 — forfeit loss (VUR)
+  | 'forfeit-win' // 16.2.2 — forfeit win
+  | 'full-bye' // 16.2.1 — pairing-allocated / full-point bye
+  | 'half-bye' // 16.2.3 or 16.2.5 — requested half-point bye
+  | 'pairing-bye' // alias for full-bye
+  | 'zero-bye'; // 16.2.3 or 16.2.5 — requested zero-point bye
+```
+
+When `kind` is absent, the game is treated as a normal over-the-board result.
+
 FIDE reference: https://handbook.fide.com/chapter/TieBreakRegulations032026
-(section 9.1 — Sonneborn-Berger System)
+(section 9.1 — Sonneborn-Berger System; section 16 — Unplayed Rounds Management)
 
 All source lives in `src/index.ts`; tests in `src/__tests__/index.spec.ts`.
 
@@ -87,6 +102,13 @@ pnpm lint && pnpm test && pnpm build
   tiebreaker to reduce the effect of a weak opponent.
 - This system is primarily used in round-robin (all-play-all) tournaments but
   the implementation does not restrict its use to that format.
+- **FIDE article 16 — Unplayed Rounds Management**: when a `Game` has a `kind`
+  field, unplayed rounds are handled per FIDE article 16.3–16.5. The `kind`
+  value determines how a player's score is adjusted for their opponents'
+  tie-break calculations (16.3) and how dummy scores are applied to the player's
+  own tie-break (16.4). The Cut-1 exception (16.5) prioritises cutting VUR
+  contributions over the globally-lowest contribution when determining what to
+  exclude in `sonnebornBergerCut1`.
 - **No runtime dependencies** — keep it that way.
 - **ESM-only** — the package ships only ESM. Do not add a CJS build.
 
