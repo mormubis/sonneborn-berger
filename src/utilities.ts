@@ -9,15 +9,15 @@ const VUR_KINDS = new Set<GameKind>(['forfeit-loss', 'half-bye', 'zero-bye']);
  * For forfeits, the perspective matters: 'forfeit-win' from white's
  * perspective is 'forfeit-loss' from black's perspective.
  */
-function playerGameKind(playerId: string, game: Game): GameKind | undefined {
+function playerGameKind(player: string, game: Game): GameKind | undefined {
   if (game.kind === undefined) {
     return undefined;
   }
   if (game.kind === 'forfeit-win') {
-    return game.white === playerId ? 'forfeit-win' : 'forfeit-loss';
+    return game.white === player ? 'forfeit-win' : 'forfeit-loss';
   }
   if (game.kind === 'forfeit-loss') {
-    return game.white === playerId ? 'forfeit-loss' : 'forfeit-win';
+    return game.white === player ? 'forfeit-loss' : 'forfeit-win';
   }
   return game.kind;
 }
@@ -35,14 +35,14 @@ function isUnplayed(kind?: GameKind): boolean {
  * for this player are also VURs (or it's the last round).
  */
 function isTerminalBye(
-  playerId: string,
+  player: string,
   games: Game[][],
   roundIndex: number,
 ): boolean {
   for (let index = roundIndex + 1; index < games.length; index++) {
     for (const g of games[index] ?? []) {
-      if (g.white === playerId || g.black === playerId) {
-        const pKind = playerGameKind(playerId, g);
+      if (g.white === player || g.black === player) {
+        const pKind = playerGameKind(player, g);
         if (!isVUR(pKind)) {
           return false;
         }
@@ -52,19 +52,17 @@ function isTerminalBye(
   return true;
 }
 
-function gamesForPlayer(playerId: string, games: Game[][]): Game[] {
-  return games
-    .flat()
-    .filter((g) => g.white === playerId || g.black === playerId);
+function gamesForPlayer(player: string, games: Game[][]): Game[] {
+  return games.flat().filter((g) => g.white === player || g.black === player);
 }
 
 /**
  * Raw score — sum of awarded points, no FIDE 16 adjustments.
  */
-function score(playerId: string, games: Game[][]): number {
+function score(player: string, games: Game[][]): number {
   let sum = 0;
-  for (const g of gamesForPlayer(playerId, games)) {
-    sum += g.white === playerId ? g.result : 1 - g.result;
+  for (const g of gamesForPlayer(player, games)) {
+    sum += g.white === player ? g.result : 1 - g.result;
   }
   return sum;
 }
@@ -73,18 +71,18 @@ function score(playerId: string, games: Game[][]): number {
  * FIDE 16.3: Adjusted score for the purpose of calculating opponents'
  * tiebreaks. Terminal requested byes (16.2.5) are evaluated as draws.
  */
-function adjustedScore(playerId: string, games: Game[][]): number {
+function adjustedScore(player: string, games: Game[][]): number {
   let sum = 0;
   for (const [roundIndex, round] of games.entries()) {
     for (const g of round) {
-      if (g.white !== playerId && g.black !== playerId) {
+      if (g.white !== player && g.black !== player) {
         continue;
       }
-      const points = g.white === playerId ? g.result : 1 - g.result;
-      const pKind = playerGameKind(playerId, g);
+      const points = g.white === player ? g.result : 1 - g.result;
+      const pKind = playerGameKind(player, g);
       sum +=
         (pKind === 'half-bye' || pKind === 'zero-bye') &&
-        isTerminalBye(playerId, games, roundIndex)
+        isTerminalBye(player, games, roundIndex)
           ? 0.5
           : points;
     }
@@ -98,15 +96,15 @@ function adjustedScore(playerId: string, games: Game[][]): number {
  * - 16.4.1: opponent's adjusted score (for forfeits)
  * - 16.4.2: 0.5 × total rounds (for other byes)
  */
-function dummyScore(playerId: string, games: Game[][], game: Game): number {
-  const playerOwnScore = score(playerId, games);
-  const pKind = playerGameKind(playerId, game);
+function dummyScore(player: string, games: Game[][], game: Game): number {
+  const playerOwnScore = score(player, games);
+  const pKind = playerGameKind(player, game);
   if (pKind === 'forfeit-win' || pKind === 'forfeit-loss') {
-    const opponentId = game.white === playerId ? game.black : game.white;
-    if (opponentId === BYE_SENTINEL) {
+    const opponent = game.white === player ? game.black : game.white;
+    if (opponent === BYE_SENTINEL) {
       return Math.min(playerOwnScore, games.length * 0.5);
     }
-    return Math.min(playerOwnScore, adjustedScore(opponentId, games));
+    return Math.min(playerOwnScore, adjustedScore(opponent, games));
   }
   return Math.min(playerOwnScore, games.length * 0.5);
 }

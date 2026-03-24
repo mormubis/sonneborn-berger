@@ -21,21 +21,21 @@ interface Contribution {
  * - FIDE 16.3: adjusted score for OTB games
  * - FIDE 16.4: dummy score for the player's own unplayed rounds
  */
-function contributions(playerId: string, games: Game[][]): Contribution[] {
+function contributions(player: string, games: Game[][]): Contribution[] {
   const result: Contribution[] = [];
 
   for (const round of games) {
     for (const g of round) {
-      if (g.white !== playerId && g.black !== playerId) {
+      if (g.white !== player && g.black !== player) {
         continue;
       }
 
-      const pKind = playerGameKind(playerId, g);
-      const playerResult = g.white === playerId ? g.result : 1 - g.result;
+      const pKind = playerGameKind(player, g);
+      const playerResult = g.white === player ? g.result : 1 - g.result;
 
       if (isUnplayed(pKind)) {
         // FIDE 16.4: participant's own unplayed round → dummy opponent
-        const dummy = dummyScore(playerId, games, g);
+        const dummy = dummyScore(player, games, g);
         result.push({
           isVUR: isVUR(pKind),
           opponentScore: dummy,
@@ -43,8 +43,8 @@ function contributions(playerId: string, games: Game[][]): Contribution[] {
         });
       } else if (g.black !== BYE_SENTINEL && g.white !== BYE_SENTINEL) {
         // OTB game → opponent's adjusted score (FIDE 16.3)
-        const opponentId = g.white === playerId ? g.black : g.white;
-        const adjScore = adjustedScore(opponentId, games);
+        const opponent = g.white === player ? g.black : g.white;
+        const adjScore = adjustedScore(opponent, games);
         result.push({
           isVUR: false,
           opponentScore: adjScore,
@@ -58,9 +58,9 @@ function contributions(playerId: string, games: Game[][]): Contribution[] {
   return result;
 }
 
-function sonnebornBerger(playerId: string, games: Game[][]): number {
+function sonnebornBerger(player: string, games: Game[][]): number {
   let sum = 0;
-  for (const c of contributions(playerId, games)) {
+  for (const c of contributions(player, games)) {
     sum += c.value;
   }
   return sum;
@@ -72,8 +72,8 @@ function sonnebornBerger(playerId: string, games: Game[][]): number {
  * adjusted score; among ties, lowest contribution value). Also find the
  * lowest VUR contribution. Cut the HIGHER of the two.
  */
-function sonnebornBergerCut1(playerId: string, games: Game[][]): number {
-  const items = contributions(playerId, games);
+function sonnebornBergerCut1(player: string, games: Game[][]): number {
+  const items = contributions(player, games);
   if (items.length === 0) {
     return 0;
   }
