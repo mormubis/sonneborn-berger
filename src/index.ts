@@ -2,7 +2,7 @@ import { BYE_SENTINEL, gamesForPlayer, score } from './utilities.js';
 
 import type { Game } from './types.js';
 
-function sonnebornBerger(playerId: string, games: Game[]): number {
+function sonnebornBerger(playerId: string, games: Game[][]): number {
   let sum = 0;
   for (const g of gamesForPlayer(playerId, games)) {
     if (g.blackId === BYE_SENTINEL || g.whiteId === BYE_SENTINEL) {
@@ -15,7 +15,7 @@ function sonnebornBerger(playerId: string, games: Game[]): number {
   return sum;
 }
 
-function sonnebornBergerCut1(playerId: string, games: Game[]): number {
+function sonnebornBergerCut1(playerId: string, games: Game[][]): number {
   const contributions: { contribution: number; opponentScore: number }[] = [];
   for (const g of gamesForPlayer(playerId, games)) {
     if (g.blackId === BYE_SENTINEL || g.whiteId === BYE_SENTINEL) {
