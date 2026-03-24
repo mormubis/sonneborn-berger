@@ -21,10 +21,11 @@ npm install @echecs/sonneborn-berger
 ```typescript
 import { sonnebornBerger } from '@echecs/sonneborn-berger';
 
+// games[n] = round n+1; Game has no `round` field
 const games = [
-  { blackId: 'B', result: 1, round: 1, whiteId: 'A' },
-  { blackId: 'C', result: 0.5, round: 2, whiteId: 'A' },
-  { blackId: 'A', result: 0, round: 3, whiteId: 'D' },
+  [{ blackId: 'B', result: 1, whiteId: 'A' }], // round 1
+  [{ blackId: 'C', result: 0.5, whiteId: 'A' }], // round 2
+  [{ blackId: 'A', result: 0, whiteId: 'D' }], // round 3
 ];
 
 const score = sonnebornBerger('A', games);
@@ -33,18 +34,18 @@ const score = sonnebornBerger('A', games);
 
 ## API
 
-All functions accept `(playerId: string, games: Game[])` and return `number`.
-They are drop-in compatible with the shared `Tiebreak` type
-`(playerId: string, games: Game[], players: Player[]) => number`.
+All functions accept `(playerId: string, games: Game[][], players?: Player[])`
+and return `number`. Round is determined by array position: `games[0]` = round
+1, `games[1]` = round 2, etc. The `Game` type has no `round` field.
 
-### `sonnebornBerger(playerId, games)`
+### `sonnebornBerger(playerId, games, players?)`
 
 **FIDE section 9.1** — Full Sonneborn-Berger score. For each game played by
 `playerId`, adds the final tournament score of the opponent multiplied by the
 result (1 for a win, 0.5 for a draw, 0 for a loss). Byes are excluded. Primarily
 used in round-robin tournaments.
 
-### `sonnebornBergerCut1(playerId, games)`
+### `sonnebornBergerCut1(playerId, games, players?)`
 
 **FIDE section 9.1** — Sonneborn-Berger minus the lowest-contributing opponent.
 Computes all per-opponent contributions and removes the one with the smallest

@@ -20,8 +20,12 @@ Pure calculation library, no runtime dependencies. Exports two functions:
 All functions conform to the signature:
 
 ```ts
-(playerId: string, players: Player[], games: Game[]) => number;
+(playerId: string, games: Game[][], players?: Player[]) => number;
 ```
+
+`Game[][]` is a round-indexed structure: `games[0]` contains round-1 games,
+`games[1]` contains round-2 games, and so on. The `Game` type no longer has a
+`round` field — round is determined by array position.
 
 FIDE reference: https://handbook.fide.com/chapter/TieBreakRegulations032026
 (section 9.1 — Sonneborn-Berger System)
