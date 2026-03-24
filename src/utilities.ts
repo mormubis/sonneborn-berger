@@ -109,9 +109,59 @@ function dummyScore(player: string, games: Game[][], game: Game): number {
   return Math.min(playerOwnScore, games.length * 0.5);
 }
 
+interface Contribution {
+  isVUR: boolean;
+  opponentScore: number;
+  value: number;
+}
+
+/**
+ * Collect Sonneborn-Berger contributions for a player per FIDE 16.
+ * Each contribution is playerResult × opponentScore, where opponentScore is:
+ * - FIDE 16.3: adjusted score for OTB games
+ * - FIDE 16.4: dummy score for the player's own unplayed rounds
+ */
+function contributions(player: string, games: Game[][]): Contribution[] {
+  const result: Contribution[] = [];
+
+  for (const round of games) {
+    for (const g of round) {
+      if (g.white !== player && g.black !== player) {
+        continue;
+      }
+
+      const pKind = playerGameKind(player, g);
+      const playerResult = g.white === player ? g.result : 1 - g.result;
+
+      if (isUnplayed(pKind)) {
+        // FIDE 16.4: participant's own unplayed round → dummy opponent
+        const dummy = dummyScore(player, games, g);
+        result.push({
+          isVUR: isVUR(pKind),
+          opponentScore: dummy,
+          value: playerResult * dummy,
+        });
+      } else if (g.black !== BYE_SENTINEL && g.white !== BYE_SENTINEL) {
+        // OTB game → opponent's adjusted score (FIDE 16.3)
+        const opponent = g.white === player ? g.black : g.white;
+        const adjScore = adjustedScore(opponent, games);
+        result.push({
+          isVUR: false,
+          opponentScore: adjScore,
+          value: playerResult * adjScore,
+        });
+      }
+      // Sentinel byes without kind are skipped
+    }
+  }
+
+  return result;
+}
+
 export {
   BYE_SENTINEL,
   adjustedScore,
+  contributions,
   dummyScore,
   gamesForPlayer,
   isTerminalBye,
@@ -120,3 +170,5 @@ export {
   playerGameKind,
   score,
 };
+
+export type { Contribution };
