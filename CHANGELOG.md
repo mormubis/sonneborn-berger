@@ -1,5 +1,33 @@
 # Changelog
 
+## 3.0.0 — 2026-03-25
+
+### Changed
+
+- **BREAKING:** Bye games now use same player for both sides
+  (`{ black: 'A', white: 'A' }`) instead of empty string
+  (`{ black: '', white: 'A' }`).
+- Updated TypeScript to 6.0.
+- Internal: split functions into individual files, renamed parameters.
+
+## 2.0.0 — 2026-03-24
+
+### Added
+
+- `GameKind` type for FIDE 16 unplayed rounds.
+- SPEC.md with FIDE C.07 regulation text.
+
+### Changed
+
+- **BREAKING:** `GameKind` added to `Game` type exports.
+
+## 1.0.0 — 2026-03-24
+
+### Changed
+
+- **BREAKING:** All functions renamed to `tiebreak`.
+- **BREAKING:** Subpath exports added.
+
 ## 0.3.0 — 2026-03-24
 
 ### Changed
@@ -11,14 +39,13 @@
 
 ### Changed
 
-- **BREAKING:** `Game` type no longer has a `round` field. Round is determined
-  by array position: `games[n]` = round n+1.
+- **BREAKING:** `Game` type no longer has a `round` field.
 - **BREAKING:** All functions accept `Game[][]` instead of `Game[]`.
 
 ## 0.1.1 — 2026-03-23
 
-- First npm release
+- First npm release.
 
 ## 0.1.0 — 2026-03-22
 
-- Initial implementation
+- Initial implementation.
