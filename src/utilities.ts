@@ -1,7 +1,5 @@
 import type { Game, GameKind } from './types.js';
 
-const BYE_SENTINEL = '';
-
 const VUR_KINDS = new Set<GameKind>(['forfeit-loss', 'half-bye', 'zero-bye']);
 
 /**
@@ -101,7 +99,7 @@ function dummyScore(player: string, games: Game[][], game: Game): number {
   const pKind = playerGameKind(player, game);
   if (pKind === 'forfeit-win' || pKind === 'forfeit-loss') {
     const opponent = game.white === player ? game.black : game.white;
-    if (opponent === BYE_SENTINEL) {
+    if (game.black === game.white) {
       return Math.min(playerOwnScore, games.length * 0.5);
     }
     return Math.min(playerOwnScore, adjustedScore(opponent, games));
@@ -141,7 +139,7 @@ function contributions(player: string, games: Game[][]): Contribution[] {
           opponentScore: dummy,
           value: playerResult * dummy,
         });
-      } else if (g.black !== BYE_SENTINEL && g.white !== BYE_SENTINEL) {
+      } else if (g.black !== g.white) {
         // OTB game → opponent's adjusted score (FIDE 16.3)
         const opponent = g.white === player ? g.black : g.white;
         const adjScore = adjustedScore(opponent, games);
@@ -159,7 +157,6 @@ function contributions(player: string, games: Game[][]): Contribution[] {
 }
 
 export {
-  BYE_SENTINEL,
   adjustedScore,
   contributions,
   dummyScore,

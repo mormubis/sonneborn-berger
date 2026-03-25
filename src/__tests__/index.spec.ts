@@ -90,7 +90,7 @@ const GAMES_FIDE16: Game[][] = [
   ],
   [
     { black: 'C', result: 1, white: 'A' },
-    { black: '', kind: 'half-bye' as GameKind, result: 0.5, white: 'D' },
+    { black: 'D', kind: 'half-bye' as GameKind, result: 0.5, white: 'D' },
   ],
 ];
 
