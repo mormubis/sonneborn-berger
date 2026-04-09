@@ -36,28 +36,51 @@ const score = sonnebornBerger('A', games);
 
 ## API
 
-All functions accept `(playerId: string, games: Game[][], players?: Player[])`
-and return `number`. Round is determined by array position: `games[0]` = round
-1, `games[1]` = round 2, etc. The `Game` type has no `round` field.
+All functions accept `(player: string, games: Game[][])` and return `number`.
+Round is determined by array position: `games[0]` = round 1, `games[1]` = round
+2, etc. The `Game` type has no `round` field.
 
 The optional `kind?: GameKind` field on `Game` classifies unplayed rounds for
 FIDE article 16 compliance. Valid values: `'forfeit-loss'`, `'forfeit-win'`,
 `'full-bye'`, `'half-bye'`, `'pairing-bye'`, `'zero-bye'`. When absent the game
 is treated as a normal over-the-board result.
 
-### `sonnebornBerger(playerId, games, players?)`
+### Root export (`@echecs/sonneborn-berger`)
+
+```typescript
+import { sonnebornBerger, tiebreak } from '@echecs/sonneborn-berger';
+import type { Game, GameKind, Player, Result } from '@echecs/sonneborn-berger';
+```
+
+#### `sonnebornBerger(player, games)`
 
 **FIDE section 9.1** — Full Sonneborn-Berger score. For each game played by
-`playerId`, adds the final tournament score of the opponent multiplied by the
+`player`, adds the final tournament score of the opponent multiplied by the
 result (1 for a win, 0.5 for a draw, 0 for a loss). Byes are excluded. Primarily
 used in round-robin tournaments. Compliant with FIDE article 16 unplayed rounds
 management when `kind` is present on games.
 
-### `sonnebornBergerCut1(playerId, games, players?)`
+`tiebreak` is an alias for `sonnebornBerger`.
+
+### `/cut1` subpath export (`@echecs/sonneborn-berger/cut1`)
+
+```typescript
+import { sonnebornBergerCut1, tiebreak } from '@echecs/sonneborn-berger/cut1';
+import type {
+  Game,
+  GameKind,
+  Player,
+  Result,
+} from '@echecs/sonneborn-berger/cut1';
+```
+
+#### `sonnebornBergerCut1(player, games)`
 
 **FIDE section 9.1** — Sonneborn-Berger minus the lowest-contributing opponent.
 Computes all per-opponent contributions and removes the one with the smallest
 value before summing. Returns `0` when no games have been played.
+
+`tiebreak` is an alias for `sonnebornBergerCut1`.
 
 ## Contributing
 
