@@ -4,6 +4,8 @@ Agent guidance for the `@echecs/sonneborn-berger` repository — a TypeScript
 library implementing the Sonneborn-Berger tiebreak following FIDE Tiebreak
 Regulations (section 9.1).
 
+**See also:** [`REFERENCES.md`](REFERENCES.md) | [`SPEC.md`](SPEC.md)
+
 See the root `AGENTS.md` for workspace-wide conventions.
 
 **Backlog:** tracked in
@@ -114,6 +116,16 @@ pnpm lint && pnpm test && pnpm build
   exclude in `sonnebornBergerCut1`.
 - **No runtime dependencies** — keep it that way.
 - **ESM-only** — the package ships only ESM. Do not add a CJS build.
+
+---
+
+## Tiebreak Signature
+
+All tiebreak functions consumed by `@echecs/tournament` must conform to:
+
+```typescript
+(playerId: string, games: Game[], players: Map<string, Player>) => number;
+```
 
 ---
 
