@@ -1,7 +1,6 @@
 # Sonneborn-Berger
 
 [![npm](https://img.shields.io/npm/v/@echecs/sonneborn-berger)](https://www.npmjs.com/package/@echecs/sonneborn-berger)
-[![Test](https://github.com/mormubis/sonneborn-berger/actions/workflows/test.yml/badge.svg)](https://github.com/mormubis/sonneborn-berger/actions/workflows/test.yml)
 [![Coverage](https://codecov.io/gh/mormubis/sonneborn-berger/branch/main/graph/badge.svg)](https://codecov.io/gh/mormubis/sonneborn-berger)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
