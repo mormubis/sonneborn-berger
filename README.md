@@ -1,7 +1,7 @@
 # Sonneborn-Berger
 
 [![npm](https://img.shields.io/npm/v/@echecs/sonneborn-berger)](https://www.npmjs.com/package/@echecs/sonneborn-berger)
-[![Coverage](https://codecov.io/gh/mormubis/sonneborn-berger/branch/main/graph/badge.svg)](https://codecov.io/gh/mormubis/sonneborn-berger)
+[![Coverage](https://codecov.io/gh/echecsjs/sonneborn-berger/branch/main/graph/badge.svg)](https://codecov.io/gh/echecsjs/sonneborn-berger)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Sonneborn-Berger** is a TypeScript library implementing the Sonneborn-Berger
@@ -85,4 +85,4 @@ value before summing. Returns `0` when no games have been played.
 ## Contributing
 
 Contributions are welcome. Please open an issue at
-[github.com/mormubis/sonneborn-berger/issues](https://github.com/mormubis/sonneborn-berger/issues).
+[github.com/echecsjs/sonneborn-berger/issues](https://github.com/echecsjs/sonneborn-berger/issues).

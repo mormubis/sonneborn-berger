@@ -1,7 +1,7 @@
 {
   "author": "Adrian de la Rosa <adrian@delarosab.me>",
   "bugs": {
-    "url": "https://github.com/mormubis/sonneborn-berger/issues"
+    "url": "https://github.com/echecsjs/sonneborn-berger/issues"
   },
   "description": "Sonneborn-Berger tiebreak for chess tournaments following FIDE rules. Zero dependencies.",
   "devDependencies": {
@@ -41,7 +41,7 @@
     "README.md",
     "CHANGELOG.md"
   ],
-  "homepage": "https://github.com/mormubis/sonneborn-berger#readme",
+  "homepage": "https://github.com/echecsjs/sonneborn-berger#readme",
   "keywords": [
     "chess",
     "fide",
@@ -58,7 +58,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mormubis/sonneborn-berger.git"
+    "url": "https://github.com/echecsjs/sonneborn-berger.git"
   },
   "scripts": {
     "build": "tsdown",

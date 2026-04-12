@@ -9,7 +9,7 @@ Regulations (section 9.1).
 See the root `AGENTS.md` for workspace-wide conventions.
 
 **Backlog:** tracked in
-[GitHub Issues](https://github.com/mormubis/sonneborn-berger/issues).
+[GitHub Issues](https://github.com/echecsjs/sonneborn-berger/issues).
 
 ---
 
