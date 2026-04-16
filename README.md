@@ -82,7 +82,6 @@ value before summing. Returns `0` when no games have been played.
 
 `tiebreak` is an alias for `sonnebornBergerCut1`.
 
-## Contributing
+## License
 
-Contributions are welcome. Please open an issue at
-[github.com/echecsjs/sonneborn-berger/issues](https://github.com/echecsjs/sonneborn-berger/issues).
+MIT
