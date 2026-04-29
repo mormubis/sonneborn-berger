@@ -1,4 +1,4 @@
-import type { Game, GameKind } from './types.js';
+import type { Game, GameKind } from '@echecs/tournament';
 
 const VUR_KINDS = new Set<GameKind>(['forfeit-loss', 'half-bye', 'zero-bye']);
 

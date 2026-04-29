@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { sonnebornBergerCut1 } from '../cut1.js';
 import { sonnebornBerger } from '../index.js';
 
-import type { Game, GameKind } from '../types.js';
+import type { Game, GameKind } from '@echecs/tournament';
 
 // 4 players, 3 rounds:
 // Round 1: A(W) 1-0 B, C(W) 0-1 D
