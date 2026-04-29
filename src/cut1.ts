@@ -1,7 +1,7 @@
 import { contributions } from './utilities.js';
 
-import type { Game } from './types.js';
 import type { Contribution } from './utilities.js';
+import type { Game } from '@echecs/tournament';
 
 /**
  * FIDE 16.5 Cut-1 for Sonneborn-Berger:
@@ -56,4 +56,4 @@ function sonnebornBergerCut1(player: string, games: Game[][]): number {
 
 export { sonnebornBergerCut1, sonnebornBergerCut1 as tiebreak };
 
-export type { Game, GameKind, Player, Result } from './types.js';
+export type { Game, GameKind, Player, Result } from '@echecs/tournament';

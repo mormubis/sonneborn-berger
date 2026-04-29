@@ -1,6 +1,6 @@
 import { contributions } from './utilities.js';
 
-import type { Game } from './types.js';
+import type { Game } from '@echecs/tournament';
 
 function sonnebornBerger(player: string, games: Game[][]): number {
   let sum = 0;
@@ -12,4 +12,4 @@ function sonnebornBerger(player: string, games: Game[][]): number {
 
 export { sonnebornBerger, sonnebornBerger as tiebreak };
 
-export type { Game, GameKind, Player, Result } from './types.js';
+export type { Game, GameKind, Player, Result } from '@echecs/tournament';

@@ -5,6 +5,7 @@
   },
   "description": "Sonneborn-Berger tiebreak (including Cut-1 variant) for chess tournaments following FIDE rules. Zero dependencies.",
   "devDependencies": {
+    "@echecs/tournament": "^2.1.2",
     "@eslint/js": "^10.0.1",
     "@typescript-eslint/parser": "^8.57.0",
     "@vitest/coverage-v8": "^4.1.0",
@@ -18,8 +19,8 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "tsdown": "^0.21.4",
-    "typescript": "^6.0.2",
     "typedoc": "^0.28.17",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.57.0",
     "vitest": "^4.1.0"
   },
