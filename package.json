@@ -4,6 +4,9 @@
     "url": "https://github.com/echecsjs/sonneborn-berger/issues"
   },
   "description": "Sonneborn-Berger tiebreak (including Cut-1 variant) for chess tournaments following FIDE rules. Zero dependencies.",
+  "peerDependencies": {
+    "@echecs/tournament": "^2.0.0"
+  },
   "devDependencies": {
     "@echecs/tournament": "^2.1.2",
     "@eslint/js": "^10.0.1",
