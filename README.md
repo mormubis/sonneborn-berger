@@ -3,6 +3,7 @@
 [![npm](https://img.shields.io/npm/v/@echecs/sonneborn-berger)](https://www.npmjs.com/package/@echecs/sonneborn-berger)
 [![Coverage](https://codecov.io/gh/echecsjs/sonneborn-berger/branch/main/graph/badge.svg)](https://codecov.io/gh/echecsjs/sonneborn-berger)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Spec](https://img.shields.io/badge/Spec-FIDE-green.svg)](SPEC.md)
 
 **Sonneborn-Berger** is a TypeScript library implementing the Sonneborn-Berger
 tiebreak for chess tournaments, following the
