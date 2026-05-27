@@ -124,7 +124,11 @@ pnpm lint && pnpm test && pnpm build
 All tiebreak functions consumed by `@echecs/tournament` must conform to:
 
 ```typescript
-(playerId: string, games: Game[], players: Map<string, Player>) => number;
+type Tiebreak = (
+  player: string,
+  rounds: CompletedRound[],
+  players: Player[],
+) => number;
 ```
 
 ---
