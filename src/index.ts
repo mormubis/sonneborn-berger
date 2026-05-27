@@ -1,18 +1,14 @@
 import { contributions } from './utilities.js';
 
-import type { CompletedRound, Player } from '@echecs/tournament';
+import type { Tiebreak } from '@echecs/tournament';
 
-function sonnebornBerger(
-  player: string,
-  rounds: CompletedRound[],
-  _players: Player[],
-): number {
+const sonnebornBerger: Tiebreak = (player, rounds, _players) => {
   let sum = 0;
   for (const c of contributions(player, rounds)) {
     sum += c.value;
   }
   return sum;
-}
+};
 
 export { sonnebornBerger, sonnebornBerger as tiebreak };
 
