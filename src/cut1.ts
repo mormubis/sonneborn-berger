@@ -1,13 +1,9 @@
 import { contributions } from './utilities.js';
 
 import type { Contribution } from './utilities.js';
-import type { CompletedRound, Player } from '@echecs/tournament';
+import type { Tiebreak } from '@echecs/tournament';
 
-function sonnebornBergerCut1(
-  player: string,
-  rounds: CompletedRound[],
-  _players: Player[],
-): number {
+const sonnebornBergerCut1: Tiebreak = (player, rounds, _players) => {
   const items = contributions(player, rounds);
   if (items.length === 0) {
     return 0;
@@ -44,7 +40,7 @@ function sonnebornBergerCut1(
     }
   }
   return sum;
-}
+};
 
 export { sonnebornBergerCut1, sonnebornBergerCut1 as tiebreak };
 
